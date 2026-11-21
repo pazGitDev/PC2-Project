@@ -1,0 +1,61 @@
+Hola, a continuación voy a brindarte un prompt para que puedas implementar un prototipo de sistema acorde a las indicaciones que se pactan en el texto que te estoy brindando. Necesito que este proyecto lo elabores dentro de la mismísima carpeta en la que nos encontramos ahora mismo. No dudes en hacerme todas las preguntas que necesites para poder implementar esto de la forma correcta.
+
+Actúa como un desarrollador senior experto en Frontend (React, Vite, Leaflet.js) y prácticas básicas de DevSecOps. Necesito que desarrolles un prototipo funcional, ligero y 100% estático de una aplicación web llamada "Mapa Seguro SJL", enfocada en visualizar zonas de riesgo ciudadano en el distrito de San Juan de Lurigancho (Lima, Perú).
+
+IMPORTANTE SOBRE EL ALCANCE Y DESPLIEGUE:
+1. El prototipo debe funcionar completamente del lado del cliente (sin backend activo ni base de datos externa) para poder publicarse gratuitamente en GitHub Pages.
+2. El prototipo corresponde ÚNICAMENTE al Modo Usuario (Ciudadano). NO incluyas pantallas de inicio de sesión, registro, ni paneles o funciones de administrador.
+
+---
+
+### 1. STACK TECNOLÓGICO REQUERIDO
+- Framework: React con Vite (JavaScript).
+- Mapas: Leaflet.js (`leaflet` o `react-leaflet`) usando exclusivamente capas base gratuitas de OpenStreetMap (sin necesidad de API Keys).
+- Estilos: CSS moderno, limpio y responsivo (mobile-first), pensado para vecinos que consultan desde celulares o computadoras.
+- Datos locales: Un archivo estructurado (`src/data/zonasSJL.js` o `.geojson`) con al menos 8 zonas de riesgo realistas y representativas dentro de San Juan de Lurigancho (por ejemplo: alrededores de Estación Bayóvar, Puente Nuevo / Evitamiento, Av. Próceres de la Independencia cuadras 15-20, Canto Grande, Zárate, Av. Las Flores, Huáscar y Campoy) y un catálogo de al menos 15 puntos de referencia/avenidas para el buscador.
+
+---
+
+### 2. REQUERIMIENTOS FUNCIONALES (HISTORIAS DE USUARIO)
+
+Debes cumplir estrictamente con las siguientes 4 historias de usuario y sus criterios de aceptación:
+
+#### A. [EP-01] HU-01: Ingreso y navegación inmediata
+- Al abrir la aplicación, el mapa interactivo centrado en San Juan de Lurigancho (latitud: -11.985, longitud: -77.005, zoom: 13) debe renderizarse directamente en menos de 3 segundos, ocupando la pantalla principal sin modales de bienvenida bloqueantes ni módulos intermediarios.
+- El usuario debe poder desplazarse libremente por el mapa manteniendo presionado el clic izquierdo (arrastre) y controlar el nivel de acercamiento (zoom).
+
+#### B. [EP-02] HU-02: Atajos de navegación (Buscador con autocompletado)
+- Debe existir una barra de búsqueda general flotante o superior visible en todo momento.
+- A medida que el usuario escribe, se debe desplegar una lista desplegable con recomendaciones y coincidencias válidas en tiempo real (avenidas, estaciones del Metro, paraderos, urbanizaciones o zonas registradas en SJL).
+- Al seleccionar una coincidencia o presionar Enter sobre un lugar válido, el mapa debe desplazarse suavemente (`flyTo`) y hacer zoom sobre el área seleccionada, mostrando un marcador temporal o resaltando la zona. Si no hay coincidencias, mostrar un mensaje claro sin romper la interfaz.
+
+#### C. [EP-03] HU-03: Visualización a detalle de zonas de riesgo
+- Las zonas de riesgo deben dibujarse como polígonos sobre el mapa y sobresalir visualmente mediante códigos de color claros según su nivel de peligrosidad (por ejemplo: Rojo para Riesgo Alto, Naranja para Riesgo Medio y Amarillo para Precaución), acompañados de una pequeña leyenda flotante.
+- Al hacer clic sobre cualquier polígono resaltado, se debe abrir un panel lateral o tarjeta informativa detallada que muestre:
+  - Nombre de la zona / sector.
+  - Nivel de riesgo.
+  - Tipo de incidencia principal (ej. robo al paso, asalto al transporte público, extorsión, microcomercialización).
+  - Horario crítico estimado.
+  - Justificación detallada de por qué la zona fue denominada de esa manera.
+
+#### D. [EP-04] HU-04: Observaciones y sugerencias ciudadanas
+- El usuario debe contar con un botón accesible (ej. "Enviar observación o sugerencia") que abra un formulario modal o panel limpio con dos modalidades seleccionables:
+  1. **Observación sobre zona existente:** Permite seleccionar una de las zonas ya marcadas en el mapa y presentar una moción para retirar o reducir su nivel de riesgo, ingresando una justificación obligatoria.
+  2. **Sugerencia de nueva zona de riesgo:** Permite indicar el nombre de la calle, avenida o referencia (o hacer clic en el mapa para capturar coordenadas aproximadas), el nivel de riesgo sugerido y una justificación obligatoria.
+- Al enviar el formulario, se debe validar que los campos no estén vacíos, sanitizar el texto ingresado (eliminando etiquetas HTML/scripts para prevenir XSS), mostrar una confirmación visual clara de que el aporte ciudadano fue registrado para revisión, y guardar temporalmente el historial de aportes del usuario en `localStorage` para que pueda consultar sus envíos durante la demostración.
+
+---
+
+### 3. REQUISITOS DE ESTRUCTURA Y CALIDAD DE CÓDIGO
+- Entrega la estructura completa de carpetas y el código íntegro de todos los archivos necesarios (`package.json`, `vite.config.js`, `index.html`, componentes de React, hojas de estilo y archivo de datos GeoJSON).
+- Asegúrate de que los iconos por defecto de Leaflet funcionen correctamente al compilar con Vite (evitando el clásico error de iconos rotos en producción).
+- Configura `vite.config.js` pensando en el despliegue en subruta de GitHub Pages (`base: './'` o indicando claramente cómo colocar el nombre del repositorio).
+
+---
+
+### 4. GUÍA PASO A PASO PARA GITHUB Y GITHUB PAGES (OBLIGATORIO)
+Al finalizar todo el código, proporciona una guía detallada, intuitiva, ordenada paso a paso y apta para principiantes que explique exactamente cómo:
+1. Crear la carpeta del proyecto en la computadora, instalar dependencias y probar la aplicación en local (`npm install` y `npm run dev`).
+2. Crear una cuenta o iniciar sesión en GitHub y crear un nuevo repositorio público desde la web.
+3. Inicializar Git en la carpeta local y subir todo el código al repositorio de GitHub mediante comandos claros de terminal (`git init`, `git add`, `git commit`, `git branch -M main`, `git remote add origin`, `git push`).
+4. Configurar y publicar el proyecto en **GitHub Pages** (explicando tanto la configuración de `base` en `vite.config.js` como el despliegue sencillo mediante el paquete `gh-pages` con `npm run deploy` y la verificación en Settings > Pages de GitHub) hasta obtener la URL pública lista para compartir.
